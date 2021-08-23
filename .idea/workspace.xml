@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e27dd8a-6782-4162-b14f-eb47c4284242" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/beer-list/beer-list.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/punkapi-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app/app.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/beer-item/beer-item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/beer-item/beer-item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/beer-list/beer-list.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/beer-list/beer-list.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -36,6 +42,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Andersen\react\practice\punk\src\components\beer-list" />
       <recent name="D:\Andersen\react\practice\punk\src\components\app" />
     </key>
   </component>
@@ -62,7 +69,8 @@
       <option name="presentableId" value="Default" />
       <updated>1629636628371</updated>
       <workItem from="1629636631101" duration="1421000" />
-      <workItem from="1629638245437" duration="8109000" />
+      <workItem from="1629638245437" duration="8249000" />
+      <workItem from="1629697556021" duration="11352000" />
     </task>
     <servers />
   </component>

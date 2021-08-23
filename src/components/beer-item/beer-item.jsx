@@ -1,18 +1,22 @@
 import React from 'react';
 
 
-const BeerItem = () => {
+const BeerItem = (props) => {
+
+  const {name, first_brewed, image_url, abv, ibu, ebc, food_pairing} = props;
+
   return (
-      <div className="col xl3 l3 m3">
-        <div className="card">
-          <div className="card-image">
-            <img src="https://aquamarket.ua/29726-large_default/slavutich-ice-mix-lime-pivo-svitle-filtrovane-35-05-l-zherstyana-banka.jpg" alt={"ee"}/>
-          </div>
-          <div className="card-content">
-            <span className="card-title">Card Title</span>
-            <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-          </div>
+      <div className="card">
+        <div className="card-image" style={{display: 'flex', justifyContent: 'center'}}>
+          <img src={`${image_url}`} alt={`${name}`} style={{maxHeight: '250px', width: 'auto'}}/>
+        </div>
+        <div className="card-content">
+          <span className="card-title">{name}</span>
+          <span> {`First brewed: ${first_brewed}`}</span>
+          <span> {`ABV: ${abv}/`}</span>
+          <span> {`IBU: ${ibu}/`}</span>
+          <span> {`EBC: ${ebc}`}</span>
+          <p>{`Food pairing: ${food_pairing}`}</p>
         </div>
       </div>
   )
