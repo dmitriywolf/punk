@@ -3,7 +3,6 @@ import AppTitle from "../app-title";
 import SearchBeer from "../search-beer";
 import Filters from "../filters";
 import FilterBtn from "../filter-btn";
-import Pagination from "../pagination";
 import BeerList from "../beer-list";
 
 import './app.css'
@@ -12,17 +11,17 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       beers: [{id: 1}],
       isFetching: false,
     };
   }
 
-
   _apiBase = 'https://api.punkapi.com/v2/beers';
-  pageNumber = 1;
-  pageSize = 25;
+
+  _pageNumber = 1;
+  _pageSize = 10;
+  _defaultURL = `?page=${this._pageNumber}&per_page=${this._pageSize}`;
 
   fetchBeers = (url) => {
     this.setState({isFetching: true});
@@ -33,24 +32,31 @@ export default class App extends React.Component {
         .catch(e => console.log(e));
   };
 
-  // Стартовая загрузка элементов 25 шт.
+  // Стартовая загрузка элементов 10 шт.
   componentDidMount() {
-    this.fetchBeers('')
+    this.fetchBeers(this._defaultURL)
   }
 
-
   onFetchNextPage = () => {
-    this.pageNumber++;
-    console.log(this.pageNumber);
-    this.fetchBeers(`?page=${this.pageNumber}`)
+    this._pageNumber++;
+    console.log(this._pageNumber);
+    this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
   };
   onFetchNextPrev = () => {
-    this.pageNumber--;
-    if(this.pageNumber <= 1) {
-      this.pageNumber = 1;
+    this._pageNumber--;
+    if(this._pageNumber <= 1) {
+      this._pageNumber = 1;
     }
-    console.log(this.pageNumber);
-    this.fetchBeers(`?page=${this.pageNumber}`)
+    this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
+  };
+
+  changePageSize = (event) => {
+    this._pageSize = event.target.value;
+    this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
+  };
+
+  searchBeerFetch = (searchText) => {
+    (!!searchText) && this.fetchBeers(`?beer_name=${searchText}`)
   };
 
 
@@ -62,14 +68,15 @@ export default class App extends React.Component {
     return (
         <div className="app container">
           <AppTitle/>
-          <SearchBeer/>
+
+          <SearchBeer onSearch={this.searchBeerFetch}/>
 
           <section>
             <Filters/>
             <FilterBtn/>
           </section>
-
           <section>
+            <p className="pagination-page">Page №: {this._pageNumber}</p>
             <div className="pagination">
               <button
                   className="pagination__btn btn waves-effect waves-light"
@@ -77,23 +84,23 @@ export default class App extends React.Component {
               >
                 Prev
               </button>
-
-              <select className="pagination-select">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+              <select className="pagination-select" onChange={this.changePageSize}>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
               </select>
-
-
               <button
                   className="pagination__btn btn waves-effect waves-light"
                   onClick={this.onFetchNextPage}>
                 Next
               </button>
-
             </div>
           </section>
-
           <section>
             <BeerList beers={beers}/>
           </section>

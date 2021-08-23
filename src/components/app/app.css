@@ -6,8 +6,10 @@ section {
 .pagination {
   display: flex;
   justify-content: center;
+}
 
-
+.pagination-page {
+  text-align: center;
 }
 
 .pagination__btn {
