@@ -8,62 +8,56 @@ import BeerList from "../beer-list";
 
 import './app.css'
 
-export default class App extends React.Component{
+export default class App extends React.Component {
 
-  state = {
-    beers: ['1'],
-    isFetching: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      beers: [{id: 1}],
+      isFetching: false,
+    };
+  }
 
 
-  fetchBeers = () => {
-    this.setState({...this.state, isFetching: true});
+  _apiBase = 'https://api.punkapi.com/v2/beers';
+  pageNumber = 1;
+  pageSize = 25;
 
-    fetch('https://api.punkapi.com/v2/beers')
+  fetchBeers = (url) => {
+    this.setState({isFetching: true});
+
+    fetch(`${this._apiBase}${url}`)
         .then(response => response.json())
         .then(result => this.setState({beers: result, isFetching: false}))
         .catch(e => console.log(e));
   };
 
-
+  // Стартовая загрузка элементов 25 шт.
   componentDidMount() {
-    this.fetchBeers()
+    this.fetchBeers('')
   }
-  // state = {
-  //   beersItems: []
-  // };
-  //
-  // componentDidMount() {
-  //   this.startLoad();
-  // }
-  //
-  // startLoad = async () => {
-  //   this.setState({
-  //     beersItems: await this.getResource()
-  //   })
-  // };
 
 
-
-  _apiBase = 'https://api.punkapi.com/v2/beers';
-
-  // getResource = async () => {
-  //   const res = await fetch('https://api.punkapi.com/v2/beers');
-  //
-  //   if (!res.ok) {
-  //     throw new Error(`Could not fetch, received ${res.status}`)
-  //   }
-  //   const beers = await res.json();
-  //
-  //   return beers;
-  // };
-
+  onFetchNextPage = () => {
+    this.pageNumber++;
+    console.log(this.pageNumber);
+    this.fetchBeers(`?page=${this.pageNumber}`)
+  };
+  onFetchNextPrev = () => {
+    this.pageNumber--;
+    if(this.pageNumber <= 1) {
+      this.pageNumber = 1;
+    }
+    console.log(this.pageNumber);
+    this.fetchBeers(`?page=${this.pageNumber}`)
+  };
 
 
   render() {
 
+    const {beers} = this.state;
 
-    // const {beerItems} = this.state;
 
     return (
         <div className="app container">
@@ -76,11 +70,32 @@ export default class App extends React.Component{
           </section>
 
           <section>
-            <Pagination/>
+            <div className="pagination">
+              <button
+                  className="pagination__btn btn waves-effect waves-light"
+                  onClick={this.onFetchNextPrev}
+              >
+                Prev
+              </button>
+
+              <select className="pagination-select">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+
+
+              <button
+                  className="pagination__btn btn waves-effect waves-light"
+                  onClick={this.onFetchNextPage}>
+                Next
+              </button>
+
+            </div>
           </section>
 
           <section>
-            <BeerList beers={this.state.beers}/>
+            <BeerList beers={beers}/>
           </section>
         </div>
     );

@@ -2,11 +2,16 @@ import React from 'react';
 
 import './pagination.css';
 
-const Pagination = () => {
+const Pagination = (props) => {
+
+  const {changePageNumberOnPrev, changePageNumberOnNext, pageNumber, pageSize} = props;
 
   return (
       <div className="pagination">
-        <button className="pagination__btn btn waves-effect waves-light">
+        <button
+            className="pagination__btn btn waves-effect waves-light"
+            onClick={() => changePageNumberOnPrev()}
+        >
           Prev
         </button>
         <div >
@@ -16,7 +21,9 @@ const Pagination = () => {
             <option value="3">3</option>
           </select>
         </div>
-        <button className="pagination__btn btn waves-effect waves-light">
+        <button
+            className="pagination__btn btn waves-effect waves-light"
+            onClick={() => changePageNumberOnNext()}>
           Next
         </button>
 
