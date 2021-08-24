@@ -1,10 +1,8 @@
 import React from 'react';
 import AppTitle from "../app-title";
 import SearchBeer from "../search-beer";
-import Filters from "../filters";
-import FilterBtn from "../filter-btn";
+import Filter from "../filter";
 import BeerList from "../beer-list";
-
 import './app.css'
 
 export default class App extends React.Component {
@@ -18,14 +16,13 @@ export default class App extends React.Component {
   }
 
   _apiBase = 'https://api.punkapi.com/v2/beers';
-
   _pageNumber = 1;
   _pageSize = 10;
   _defaultURL = `?page=${this._pageNumber}&per_page=${this._pageSize}`;
 
+  // Обновления
   fetchBeers = (url) => {
     this.setState({isFetching: true});
-
     fetch(`${this._apiBase}${url}`)
         .then(response => response.json())
         .then(result => this.setState({beers: result, isFetching: false}))
@@ -44,37 +41,36 @@ export default class App extends React.Component {
   };
   onFetchNextPrev = () => {
     this._pageNumber--;
-    if(this._pageNumber <= 1) {
+    if (this._pageNumber <= 1) {
       this._pageNumber = 1;
     }
     this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
   };
-
   changePageSize = (event) => {
     this._pageSize = event.target.value;
     this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
   };
-
   searchBeerFetch = (searchText) => {
     (!!searchText) && this.fetchBeers(`?beer_name=${searchText}`)
   };
 
+  // Filters
+  filterFetch = (url) => {
+    this.fetchBeers(url)
+  };
 
   render() {
-
     const {beers} = this.state;
-
 
     return (
         <div className="app container">
           <AppTitle/>
-
           <SearchBeer onSearch={this.searchBeerFetch}/>
 
           <section>
-            <Filters/>
-            <FilterBtn/>
+            <Filter filterFetch={this.filterFetch}/>
           </section>
+
           <section>
             <p className="pagination-page">Page №: {this._pageNumber}</p>
             <div className="pagination">
@@ -107,6 +103,5 @@ export default class App extends React.Component {
         </div>
     );
   }
-
 }
 

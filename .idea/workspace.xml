@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e27dd8a-6782-4162-b14f-eb47c4284242" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/2.54f41c4d.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/2.54f41c4d.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.7e0cc89f.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.7e0cc89f.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/2.390d0d3c.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/2.390d0d3c.chunk.js.LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/2.390d0d3c.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.6ae4d19a.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.6ae4d19a.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/runtime-main.9807dae2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/runtime-main.9807dae2.js.map" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/filter/filter.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/filter/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/static/js/2.c68e46c5.chunk.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/static/js/2.c68e46c5.chunk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app/app.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filter-btn/filter-btn.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filter-btn/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filters/filters.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/filters/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/punkapi-service.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +74,9 @@
       <workItem from="1629636631101" duration="1421000" />
       <workItem from="1629638245437" duration="8249000" />
       <workItem from="1629697556021" duration="21012000" />
-      <workItem from="1629727913647" duration="4974000" />
+      <workItem from="1629727913647" duration="5683000" />
+      <workItem from="1629784443699" duration="1594000" />
+      <workItem from="1629808362000" duration="6205000" />
     </task>
     <servers />
   </component>
