@@ -9,7 +9,6 @@ export default class SearchBeer extends React.Component {
   onSearch = (e) => {
     const searchText = e.target.value;
     this.setState({searchText});
-
     setTimeout( this.props.onSearch(searchText), 200)
   };
 

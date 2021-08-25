@@ -3,10 +3,15 @@
   justify-content: center;
 }
 
+.pagination-page {
+  text-align: center;
+}
+
 .pagination__btn {
   margin: 0 20px;
 }
 
 .pagination-select {
   display: block;
+  max-width: 100px;
 }

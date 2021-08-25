@@ -1,34 +1,49 @@
 import React from 'react';
-
 import './pagination.css';
 
-const Pagination = (props) => {
+export default class Pagination extends React.Component {
 
-  const {changePageNumberOnPrev, changePageNumberOnNext, pageNumber, pageSize} = props;
+  onPageSize = (e) => {
+    this.props.changePageSize(e)
+  };
 
-  return (
-      <div className="pagination">
-        <button
-            className="pagination__btn btn waves-effect waves-light"
-            onClick={() => changePageNumberOnPrev()}
-        >
-          Prev
-        </button>
-        <div >
-          <select className="pagination-select">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+  onPrevPage = () => {
+    this.props.onFetchPrevPage();
+  };
+
+  onNextPage = () => {
+    this.props.onFetchNextPage();
+  };
+
+  render() {
+
+    return (
+        <div className="pagination">
+          <button
+              className="pagination__btn btn waves-effect waves-light"
+              onClick={this.onPrevPage}
+          >
+            Prev
+          </button>
+          <select className="pagination-select" onChange={this.onPageSize}>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+            <option value="80">80</option>
           </select>
+          <button
+              className="pagination__btn btn waves-effect waves-light"
+              onClick={this.onNextPage}>
+            Next
+          </button>
         </div>
-        <button
-            className="pagination__btn btn waves-effect waves-light"
-            onClick={() => changePageNumberOnNext()}>
-          Next
-        </button>
+    )
+  }
+}
 
-      </div>
-  )
-};
 
-export default Pagination;
+
