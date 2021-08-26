@@ -1,17 +1,18 @@
 import React from 'react';
-
+import './beer-item.css';
 
 const BeerItem = (props) => {
 
-  const {name, first_brewed, image_url, abv, ibu, ebc, food_pairing} = props;
+  const {name, first_brewed, image_url, abv, ibu, ebc, food_pairing, id} = props;
 
   return (
       <div className="card">
-        <div className="card-image" style={{display: 'flex', justifyContent: 'center'}}>
-          <img src={`${image_url}`} alt={`${name}`} style={{maxHeight: '250px', width: 'auto'}}/>
+        <div className="card-image beer__img-wrap">
+          <img src={`${image_url}`} alt={`${name}`} style={{width: 'auto'}} className="beer__img"/>
         </div>
         <div className="card-content">
           <span className="card-title">{name}</span>
+          <span> {`ID: ${id}`}</span>
           <span> {`First brewed: ${first_brewed}`}</span>
           <span> {`ABV: ${abv}/`}</span>
           <span> {`IBU: ${ibu}/`}</span>

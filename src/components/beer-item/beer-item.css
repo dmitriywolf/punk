@@ -1,0 +1,9 @@
+.beer__img-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.beer__img{
+  max-height: 250px;
+  width: auto;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import AppTitle from "../app-title";
-import SearchBeer from "../search-beer";
+import Search from "../search";
 import Filter from "../filter";
 import Pagination from "../pagination";
 import BeerList from "../beer-list";
@@ -15,7 +15,7 @@ export default class App extends React.Component {
       isFetching: false,
     };
   }
-  
+
   _pageNumber = 1;
   _pageSize = 10;
 
@@ -33,14 +33,13 @@ export default class App extends React.Component {
     this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
   }
 
-
   // Сделать запрос на следующую страницу
   onFetchNextPage = () => {
     this._pageNumber++;
     this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
   };
 
-  // Сделать запрос на следующую страницу
+  // Сделать запрос на предидущую страницу
   onFetchPrevPage = () => {
     this._pageNumber--;
     if (this._pageNumber <= 1) {
@@ -50,8 +49,8 @@ export default class App extends React.Component {
   };
 
   //Изменить размер страницы
-  changePageSize = (event) => {
-    this._pageSize = event.target.value;
+  changePageSize = (e) => {
+    this._pageSize = e.target.value;
     this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
   };
 
@@ -71,13 +70,16 @@ export default class App extends React.Component {
     return (
         <div className="app container">
           <AppTitle/>
-          <SearchBeer onSearch={this.searchBeerFetch}/>
+          <Search onSearch={this.searchBeerFetch}/>
+
           <section>
             <Filter filterFetch={this.filterFetch}/>
           </section>
+
           <section>
-            <p className="pagination-page">Page №: {this._pageNumber}</p>
-            <Pagination onFetchPrevPage={this.onFetchPrevPage} changePageSize={this.changePageSize}
+            <Pagination pageNumber={this._pageNumber}
+                        onFetchPrevPage={this.onFetchPrevPage}
+                        changePageSize={this.changePageSize}
                         onFetchNextPage={this.onFetchNextPage}/>
           </section>
           <section>
