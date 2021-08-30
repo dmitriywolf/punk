@@ -1,86 +1,88 @@
 import React from 'react';
-import AppTitle from "../app-title";
-import Search from "../search";
-import Filter from "../filter";
-import Pagination from "../pagination";
-import BeerList from "../beer-list";
-import './app.css'
+import AppTitle from "../AppTitle";
+import Search from "../Search";
+import Filter from "../Filter";
+import Pagination from "../Pagination";
+import BeerList from "../BeerList";
+import './App.css'
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      beers: [{id: 1}],
-      isFetching: false,
+      beers: [],
+      filtersUrl: [],
+      searchName: [],
+      pageNumber: 1,
+      pageSize: 10,
     };
   }
 
-  _pageNumber = 1;
-  _pageSize = 10;
-
-  // Загрузка данных
-  fetchBeers = (url) => {
-    this.setState({isFetching: true});
-    fetch(`https://api.punkapi.com/v2/beers${url}`)
+  fetchBeers = (filtersUrl, searchName, pageNumber = '1', pageSize = 10) => {
+    fetch(`${process.env.REACT_APP_API_KEY}page=${pageNumber}&per_page=${pageSize}${searchName}${filtersUrl}`)
         .then(response => response.json())
-        .then(result => this.setState({beers: result, isFetching: false}))
-        .catch(e => console.log(e));
+        .then(result => this.setState({beers: result}))
   };
 
-  // Стартовая загрузка данных10 шт.
+  // Стартовая загрузка данных 10 шт.
   componentDidMount() {
-    this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
+    this.fetchBeers('', '', 1, 10)
   }
 
-  // Сделать запрос на следующую страницу
-  onFetchNextPage = () => {
-    this._pageNumber++;
-    this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
-  };
-
-  // Сделать запрос на предидущую страницу
-  onFetchPrevPage = () => {
-    this._pageNumber--;
-    if (this._pageNumber <= 1) {
-      this._pageNumber = 1;
+  // Обновление стейта
+  componentDidUpdate(prevState) {
+    if (this.state.pageNumber !== prevState.pageNumber || this.state.pageSize !== prevState.pageSize || this.state.searchName !== prevState.searchName || this.state.filtersUrl !== prevState.filtersUrl) {
+      this.fetchBeers(this.state.filtersUrl, this.state.searchName, this.state.pageNumber, this.state.pageSize)
     }
-    this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
+  }
+
+  // Изменения номера страницы
+  changePageNumber = (isNext) => {
+    if (isNext) {
+      this.setState(({pageNumber}) => ({
+        pageNumber: pageNumber + 1
+      }))
+    } else {
+      this.setState(({pageNumber}) => ({
+        pageNumber: pageNumber - 1
+      }))
+    }
   };
 
   //Изменить размер страницы
   changePageSize = (e) => {
-    this._pageSize = e.target.value;
-    this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
+    this.setState({pageSize: e.target.value})
   };
 
   //Поиск
-  searchBeerFetch = (searchText) => {
-    (!!searchText) && this.fetchBeers(`?beer_name=${searchText}`)
+  changeSearchName = (searchText) => {
+    this.setState({searchName: searchText})
   };
 
-  // Применение фильтров
-  filterFetch = (url) => {
-    this.fetchBeers(url)
+  //Фильтр
+  changeFilterUrl = (url) => {
+    this.setState({filtersUrl: url})
   };
 
   render() {
-    const {beers} = this.state;
+    const {beers, pageNumber, pageSize} = this.state;
 
     return (
         <div className="app container">
           <AppTitle/>
-          <Search onSearch={this.searchBeerFetch}/>
+          <Search changeSearch={this.changeSearchName}/>
 
           <section>
-            <Filter filterFetch={this.filterFetch}/>
+            <Filter changeFilterUrl={this.changeFilterUrl}/>
           </section>
 
           <section>
-            <Pagination pageNumber={this._pageNumber}
-                        onFetchPrevPage={this.onFetchPrevPage}
+            <Pagination pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        changePageNumber={this.changePageNumber}
                         changePageSize={this.changePageSize}
-                        onFetchNextPage={this.onFetchNextPage}/>
+            />
           </section>
           <section>
             <BeerList beers={beers}/>

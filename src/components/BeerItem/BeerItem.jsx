@@ -1,5 +1,5 @@
 import React from 'react';
-import './beer-item.css';
+import './BeerItem.css';
 
 const BeerItem = (props) => {
 

@@ -1,23 +1,28 @@
 import React, {Component} from 'react';
+import {DebounceInput} from 'react-debounce-input';
 
-export default class Search extends Component{
+export default class Search extends Component {
 
-  state = {
-    searchText: ''
-  };
-
-  onSearch = (e) => {
-    const searchText = e.target.value;
-    this.setState({searchText});
-    setTimeout( this.props.onSearch(searchText), 200)
+  onSearchText = (e) => {
+    if (e.target.value === '') {
+      this.props.changeSearch([])
+    } else {
+      this.props.changeSearch(`&beer_name=${e.target.value}`)
+    }
   };
 
   render() {
+
     return (
-          <div className="input-field col s2">
-            <input id="beer_name" type="text" className="validate" value={this.state.searchText} onChange={this.onSearch}/>
-            <label htmlFor="beer_name">Beer name</label>
-          </div>
+        <div className="input-field col s2">
+          <DebounceInput
+              id="beer_name" type="text" className="validate"
+              minLength={2}
+              debounceTimeout={500}
+              onChange={this.onSearchText}
+          />
+          <label htmlFor="beer_name">Beer name</label>
+        </div>
     )
   }
 };

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import BeerItem from "../beer-item";
-import './beer-list.css';
+import BeerItem from "../BeerItem";
+import './BeerList.css';
 
 export default class BeerList extends Component {
 
@@ -9,11 +9,10 @@ export default class BeerList extends Component {
     const {beers} = this.props;
 
     let elements = beers.map((beer) => {
-      const {...elProps} = beer;
       return (
           <li key={beer.id} className="col xl3 l3 m3">
             <BeerItem
-                {...elProps}
+                {...beer}
             />
           </li>
       )

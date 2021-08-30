@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './pagination.css';
+import './Pagination.css';
 
 export default class Pagination extends Component {
 
@@ -8,11 +8,11 @@ export default class Pagination extends Component {
   };
 
   onPrevPage = () => {
-    this.props.onFetchPrevPage();
+    this.props.changePageNumber(false);
   };
 
   onNextPage = () => {
-    this.props.onFetchNextPage();
+    this.props.changePageNumber(true);
   };
 
   render() {
@@ -33,7 +33,7 @@ export default class Pagination extends Component {
             >
               Prev
             </button>
-            <select className="pagination__select" onChange={this.onPageSize} defaultValue={'DEFAULT'}>
+            <select className="pagination__select" onChange={this.onPageSize} defaultValue={'10'}>
               <option value="DEFAULT" disabled>Choose a page size ...</option>
               <option value="10">10</option>
               <option value="20">20</option>

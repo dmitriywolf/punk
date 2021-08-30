@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 export default class Filter extends Component {
 
-  state = {
+  filterObj = {
     abv_gt: '',
     abv_lt: '',
     ibu_gt: '',
@@ -18,14 +18,21 @@ export default class Filter extends Component {
     ids: ''
   };
 
+  state = {
+    filters: this.filterObj
+  };
+
   // События изменения инпутов
   handleInputChange = (e) => {
     const name = e.target.name;
     const value = (e.target.name === 'brewed_before' || e.target.name === 'brewed_after') ? this.modifyDate(e.target.value) : e.target.value;
 
-    this.setState({
-      [name]: value
-    });
+    for (let key in this.filterObj) {
+      if (key === name) {
+        this.filterObj[name] = value;
+      }
+    }
+    this.setState({filters: this.filterObj})
   };
 
   //Функция модифицырования дат
@@ -38,132 +45,69 @@ export default class Filter extends Component {
   // Отправка запроса
   filterFetch = (e) => {
     e.preventDefault();
-    this.props.filterFetch(this.createFilterURL());
+    this.props.changeFilterUrl(this.createFilterURL());
     this.clearForm()
   };
 
-  // Очистка полей формв через стэйт
+  // Очистка полей формы
   clearForm = () => {
-    this.setState({
-      abv_gt: '',
-      abv_lt: '',
-      ibu_gt: '',
-      ibu_lt: '',
-      ebc_gt: '',
-      ebc_lt: '',
-      yeast: '',
-      brewed_before: '',
-      brewed_after: '',
-      hops: '',
-      malt: '',
-      food: '',
-      ids: ''
-    })
+    for (let key in this.filterObj) {
+      this.filterObj[key] = '';
+    }
+    this.setState({filters: this.filterObj})
   };
 
   // Создание URL для запроса
   createFilterURL() {
-    let url = '?';
+    let url = '&';
 
-    const {abv_gt, abv_lt, ibu_gt, ibu_lt, ebc_gt, ebc_lt, yeast, brewed_before, brewed_after, hops, malt, food, ids} = this.state;
-
-    if (abv_gt && abv_gt >= 0) {
-      url += `abv_gt=${abv_gt}&`
-    }
-
-    if (abv_lt && abv_lt >= 0) {
-      url += `abv_lt=${abv_lt}&`
-    }
-
-    if (ibu_gt && ibu_gt >= 0) {
-      url += `ibu_gt=${ibu_gt}&`
-    }
-
-    if (ibu_lt && ibu_lt >= 0) {
-      url += `ibu_lt=${ibu_lt}&`
-    }
-
-    if (ebc_gt && ebc_gt >= 0) {
-      url += `ebc_gt=${ebc_gt}&`
-    }
-
-    if (ebc_lt && ebc_lt >= 0) {
-      url += `ebc_lt=${ebc_lt}&`
-    }
-
-    if (ebc_lt && ebc_lt >= 0) {
-      url += `ebc_lt=${ebc_lt}&`
-    }
-
-    if (yeast) {
-      url += `yeast=${yeast}&`
-    }
-
-    if (brewed_before) {
-      url += `brewed_before=${brewed_before}&`
-    }
-
-    if (brewed_after) {
-      url += `brewed_after=${brewed_after}&`
-    }
-
-    if (hops) {
-      url += `hops=${hops}&`
-    }
-
-    if (malt) {
-      url += `malt=${malt}&`
-    }
-
-    if (food) {
-      url += `food=${food}&`
-    }
-
-    if (ids) {
-      url += `ids=${ids}&`
+    for (let key in this.filterObj) {
+      if (this.filterObj[key]) {
+        url += `${key}=${this.filterObj[key]}&`
+      }
     }
     return url;
   }
 
   render() {
 
-    const {abv_gt, abv_lt, ibu_gt, ibu_lt, ebc_gt, ebc_lt, yeast, hops, malt, food, ids} = this.state;
+    const {abv_gt, abv_lt, ibu_gt, ibu_lt, ebc_gt, ebc_lt, yeast, hops, malt, food, ids} = this.state.filters;
 
     return (
         <form name="filter_form" className="col s12">
           <div className="row">
             <div className="input-field col s2">
-              <input id="abv_gt" name="abv_gt" type="number" className="validate" value={abv_gt}
+              <input id="abv_gt" name="abv_gt" type="number" minLength={0} className="validate" value={abv_gt}
                      onChange={this.handleInputChange}/>
               <label htmlFor="abv_gt">ABV greater than</label>
             </div>
 
             <div className="input-field col s2">
-              <input id="abv_lt" name="abv_lt" type="number" className="validate" value={abv_lt}
+              <input id="abv_lt" name="abv_lt" type="number" minLength={0} className="validate" value={abv_lt}
                      onChange={this.handleInputChange}/>
               <label htmlFor="abv_lt">ABV less than</label>
             </div>
 
             <div className="input-field col s2">
-              <input id="ibu_gt" name="ibu_gt" type="number" className="validate" value={ibu_gt}
+              <input id="ibu_gt" name="ibu_gt" type="number" minLength={0} className="validate" value={ibu_gt}
                      onChange={this.handleInputChange}/>
               <label htmlFor="ibu_gt">IBU greater than</label>
             </div>
 
             <div className="input-field col s2">
-              <input id="ibu_lt" name="ibu_lt" type="number" className="validate" value={ibu_lt}
+              <input id="ibu_lt" name="ibu_lt" type="number" minLength={0} className="validate" value={ibu_lt}
                      onChange={this.handleInputChange}/>
               <label htmlFor="ibu_lt">IBU less than</label>
             </div>
 
             <div className="input-field col s2">
-              <input id="ebc_gt" name="ebc_gt" type="number" className="validate" value={ebc_gt}
+              <input id="ebc_gt" name="ebc_gt" type="number" minLength={0} className="validate" value={ebc_gt}
                      onChange={this.handleInputChange}/>
               <label htmlFor="ebc_gt">EBC greater than</label>
             </div>
 
             <div className="input-field col s2">
-              <input id="ebc_lt" name="ebc_lt" type="number" className="validate" value={ebc_lt}
+              <input id="ebc_lt" name="ebc_lt" type="number" minLength={0} className="validate" value={ebc_lt}
                      onChange={this.handleInputChange}/>
               <label htmlFor="ebc_lt">EBC less than</label>
             </div>
