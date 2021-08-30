@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 export default class Filter extends Component {
-
+  // дефолтный стейт и обьект где ты ниже ресетишь стейт стоит вынести куда-то наверх в один обьект и его переиспользовать
   state = {
     abv_gt: '',
     abv_lt: '',
@@ -67,6 +67,7 @@ export default class Filter extends Component {
 
     const {abv_gt, abv_lt, ibu_gt, ibu_lt, ebc_gt, ebc_lt, yeast, brewed_before, brewed_after, hops, malt, food, ids} = this.state;
 
+    // код ниже надо сократить, а то выходит куча почти идентичных ifов. Подумай как можно порефачить, если идей не будет - пиши
     if (abv_gt && abv_gt >= 0) {
       url += `abv_gt=${abv_gt}&`
     }

@@ -8,8 +8,9 @@ export default class BeerList extends Component {
 
     const {beers} = this.props;
 
+    // зачем тут let, если можно const?
     let elements = beers.map((beer) => {
-      const {...elProps} = beer;
+      const {...elProps} = beer; // выглядит как лишняя строчка, мы можем ниже просто beer использовать
       return (
           <li key={beer.id} className="col xl3 l3 m3">
             <BeerItem

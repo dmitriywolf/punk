@@ -9,6 +9,7 @@ export default class Search extends Component{
   onSearch = (e) => {
     const searchText = e.target.value;
     this.setState({searchText});
+    // таймаут нельзя, у тебя ситуация выходит та же, что и без него. Попробуй быстро ввести 20 символов - пойдет 20 запросов, мы такого хотим избежать. Поищи в гугле debounce
     setTimeout( this.props.onSearch(searchText), 200)
   };
 

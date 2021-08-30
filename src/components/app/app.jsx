@@ -16,12 +16,14 @@ export default class App extends React.Component {
     };
   }
 
+  // этих двоих однозначно нужно в state занести, у тебя при изменении не будет ререндера
   _pageNumber = 1;
   _pageSize = 10;
 
   // Загрузка данных
   fetchBeers = (url) => {
     this.setState({isFetching: true});
+    // урл к апи желательно в .env выносить
     fetch(`https://api.punkapi.com/v2/beers${url}`)
         .then(response => response.json())
         .then(result => this.setState({beers: result, isFetching: false}))
@@ -30,6 +32,7 @@ export default class App extends React.Component {
 
   // Стартовая загрузка данных10 шт.
   componentDidMount() {
+    // у тебя строчка с query параметрами 4 раза повторяется в этом компоненте, строку параметров лучше создавать в fetchBeers, куда в аргументах функции мы можем передать необходимые параметры
     this.fetchBeers(`?page=${this._pageNumber}&per_page=${this._pageSize}`)
   }
 
@@ -60,7 +63,7 @@ export default class App extends React.Component {
   };
 
   // Применение фильтров
-  filterFetch = (url) => {
+  filterFetch = (url) => { // а для чего этот метод?
     this.fetchBeers(url)
   };
 

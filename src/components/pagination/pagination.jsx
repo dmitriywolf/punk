@@ -33,6 +33,7 @@ export default class Pagination extends Component {
             >
               Prev
             </button>
+            {/* У тебя в app.js по дефолту страница на 10, а тут показываешь пользователю что не выбрано. Надо отображать тот же размер, что и в app.js */}
             <select className="pagination__select" onChange={this.onPageSize} defaultValue={'DEFAULT'}>
               <option value="DEFAULT" disabled>Choose a page size ...</option>
               <option value="10">10</option>
