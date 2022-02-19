@@ -3,7 +3,7 @@ import './AppTitle.css';
 
 const AppTitle = () => {
   return (
-      <h1 className="app__title">Beer Library</h1>
+      <h1 className="app__title">Beer library</h1>
   )
 };
 
